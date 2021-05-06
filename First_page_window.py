@@ -1,5 +1,5 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from Wavelet_Transform import *
+from Fusion_algorithm.Wavelet_Transform import *
 import qtawesome
 
 
