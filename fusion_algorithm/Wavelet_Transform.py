@@ -1,8 +1,6 @@
 import pywt
 import numpy as np
-import matplotlib
-matplotlib.use('Agg')
-import matplotlib.pyplot as plt
+
 from PIL import Image
 import cv2
 
@@ -20,6 +18,8 @@ import cv2
 
 def imgOpen(path):
     img = Image.open(path).convert('L')
+    #img = cv2.imread(path)
+    # img = cv2.cvtColor(img, cv2.COLOR_RGB2GRAY)
     imgArray = np.array(img)
     return imgArray
 
@@ -48,7 +48,7 @@ def getVarianceImg(array):
             varImg[i, j] = var
     return varImg
 
-
+'''
 # 不会写canny，暂时先用Sobel算子代替
 def calcGradient(img):
     xDiff = cv2.Sobel(img, cv2.CV_16S, 1, 0)
@@ -57,7 +57,7 @@ def calcGradient(img):
     stdYdiff = cv2.convertScaleAbs(yDiff)
     gradient = np.sqrt(stdXdiff ** 2 + stdYdiff ** 2)
     return gradient
-
+'''
 
 def testWave(img1, img2):
     transf1 = pywt.wavedec2(img1, 'haar', level=4)
@@ -91,7 +91,13 @@ def testWave(img1, img2):
 
 
 def testSave(img):
-    plt.imshow(img, cmap='gray')
-    plt.axis('off')
-    plt.savefig('./Intermediate/Wavelet_Transform.jpg')
-    plt.show()
+
+    cv2.imwrite('../Intermediate/Wavelet_Transform_lab.jpg', img)
+
+'''
+if __name__ == '__main__':
+    img1 = imgOpen('../pic_demo/lab/lab_1.png')
+    img2 = imgOpen('../pic_demo/lab/lab_2.png')
+    res = testWave(img1, img2)
+    testSave(res)
+'''
